@@ -1,14 +1,18 @@
 import React from 'react';
 import './App.css';
 import {useState} from 'react';
-import Note from './note.js';
-import {del} from './note.js';
-
+import Note from './Note.js';
+import {del} from './Note.js';
 
 function App() {
   const [item, setItem]=useState([{value:"test1", id:0, done: true}, {value:"test2", id:1, done: false}]);
   var text;
   const[count, setCount] = useState(2);
+  const doneTask = index => {
+    const doneTask = item;
+    doneTask[index].done = !doneTask[index].done;
+    setItem([...doneTask]); 
+  };
 
   return (
 <div>
@@ -33,7 +37,7 @@ function App() {
       <div className="output">
         <div className = "checkbox">
           {item.map(x=>(
-            <Note value={x.value} id={x.id} done={x.done} key={x.id} sd={item} />
+            <Note value={x.value} id={x.id} done={x.done} key={x.id} doneTask={doneTask} />
           ))
           }
            </div>

@@ -1,34 +1,33 @@
 import React from 'react';
-import {useState} from 'react';
+
 var delArr = [];
-
-
-
-export function del(){
-   
+export function del(){   
     return delArr
 }
-function Note ({value, id, done, sd}){
-     const [sdone, setDone]=useState(done);
-    
+function change(id){
+  if(delArr.indexOf(id) ===-1) {
+   return delArr.push(id)
+   } 
+   else{
+     return delArr.splice(delArr.indexOf(id),1)
+   }
+}
+
+function buttn(val){
+  var cal;
+   if(val){ 
+     cal = "unlistbutton"
+  }
+  else{
+     cal = "newlistbutton"
+  }
+  return cal  
+}
+function Note ({value, id, done, doneTask}){
    return (<p className = "newlistp" key={id}>
-               <input type="checkbox" className="newlistbox" id={id} onChange={()=>{
-                 delArr.indexOf(id) ===-1 ? delArr.push(id) : delArr.splice(delArr.indexOf(id),1)
-              }
-                }/>
-               {!sdone ?(<span className="doneText">{value}</span>) : (<span className="undoneText">{value}</span>)}
-               {!sdone ? (<button className="newlistbutton" id={id} onClick={()=>{
-             
-                sd.filter(x=>x.id===id)[0].done=true;
-              console.log(sd)
-              setDone(!sdone)
-                }} >done</button>) : (<button className="unlistbutton" id={id} onClick={()=>{
-                 
-                  sd.filter(x=>x.id===id)[0].done=false;
-                setDone(!sdone)
-                console.log(sd)
-                }}>undone</button>)
-               }
+               <input type="checkbox" className="newlistbox" id={id} onChange={()=>change(id)}/>
+                  <span className={buttn(done)}>{value}</span>
+                 <button className={buttn(done)} onClick={()=>{doneTask(id)}}/>
                </p>)
 }
 export default Note;

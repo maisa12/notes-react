@@ -67,7 +67,7 @@ h1{
   position:relative;
   top: 4px; 
 }
-.newlistbutton{
+button.newlistbutton{
   color: lightblue;
   position: absolute;
   right: 3px;
@@ -80,8 +80,9 @@ h1{
   height: 30px;
   border-radius: 5px;
   outline: none;
+ 
 }
-.unlistbutton{
+button.unlistbutton{
   color: lightblue;
   position: absolute;
   right: 3px;
@@ -116,6 +117,15 @@ h2{
 button{
   cursor: pointer;
 }
-.undoneText{
+span.unlistbutton{
   text-decoration: line-through;
+}
+button.newlistbutton::after{
+  content: "Done"
+}
+button.unlistbutton::after{
+  content: "Undone"
+}
+span.newlistbutton{
+  text-decoration: none;
 }
