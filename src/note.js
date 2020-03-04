@@ -1,17 +1,6 @@
 import React from 'react';
 
-var delArr = [];
-export function del(){   
-    return delArr
-}
-function change(id){
-  if(delArr.indexOf(id) ===-1) {
-   return delArr.push(id)
-   } 
-   else{
-     return delArr.splice(delArr.indexOf(id),1)
-   }
-}
+
 
 function buttn(val){
   var cal;
@@ -23,11 +12,11 @@ function buttn(val){
   }
   return cal  
 }
-function Note ({value, id, done, doneTask}){
+function Note ({value, id, done, doneTask, ch, check}){
    return (<p className = "newlistp" key={id}>
-               <input type="checkbox" className="newlistbox" id={id} onChange={()=>change(id)}/>
+               <input type="checkbox" className="newlistbox"  id={id} onChange={()=>check(ch)}/>
                   <span className={buttn(done)}>{value}</span>
-                 <button className={buttn(done)} onClick={()=>{doneTask(id)}}/>
+                 <button className={buttn(done)} onClick={()=>doneTask(id)}/>
                </p>)
 }
 export default Note;

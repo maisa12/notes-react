@@ -2,17 +2,20 @@ import React from 'react';
 import './App.css';
 import {useState} from 'react';
 import Note from './Note.js';
-import {del} from './Note.js';
+
 
 function App() {
-  const [item, setItem]=useState([{value:"test1", id:0, done: true}, {value:"test2", id:1, done: false}]);
+  const [item, setItem]=useState([{value:"test1", id:0, done: true, check:false}, {value:"test2", id:1, done: false, check:false}]);
   var text;
   const[count, setCount] = useState(2);
   const doneTask = index => {
-    const doneTask = item;
-    doneTask[index].done = !doneTask[index].done;
-    setItem([...doneTask]); 
+    item[index].done = !item[index].done;
+    setItem([...item]); 
   };
+  const check = index=>{
+    item[index].check = !item[index].check;
+    setItem([...item])
+  }
 
   return (
 <div>
@@ -23,10 +26,10 @@ function App() {
         <input type="text" ref={element=>text=element} className="inputtext" placeholder="Add your note here"/>
         <button className="but"  onClick={()=>{
           setCount(count+1)
-          setItem([...item, {value:text.value, id: count, done:false}])
+          setItem([...item, {value:text.value, id: count, done:false, check:false}])
         }}><i className="fa fa-plus"></i> Add</button>
         <button className="but" onClick={()=>{
-           setItem([...item.filter((x)=>del().indexOf(x.id)===-1)])
+          setItem([...item.filter((x)=>!x.check)])
         }}><i className="fa fa-trash"></i> Delete</button>
     </div> 
   
@@ -36,8 +39,8 @@ function App() {
         </span> 
       <div className="output">
         <div className = "checkbox">
-          {item.map(x=>(
-            <Note value={x.value} id={x.id} done={x.done} key={x.id} doneTask={doneTask} />
+          {item.map((x, index)=>(
+            <Note value={x.value} id={x.id} done={x.done} key={x.id} ch={index} doneTask={doneTask} check={check}/>
           ))
           }
            </div>
