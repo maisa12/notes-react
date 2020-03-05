@@ -4,12 +4,12 @@ import './App.css';
 const paper =[
     {
         name: 'Paper N1',
-        id: 1,
+        id:1,
         notes: ['note 1 from paper 1', 'note 2 from paper 1']
     },
     {
         name: 'Paper N1',
-        id: 2,
+        id:2,
         notes: ['note 1 from paper 2', 'note 2 from paper 2']
     }
 ] 
@@ -18,8 +18,8 @@ function PaperList(){
     )
 }
 function NoteList({match}){ 
-    return paper[match.params.id].notes.map((x,index)=>(<p key={index}>{x}</p>)
-    )  
+    
+    return paper.filter((x)=>x.id===Number(match.params.id))[0].notes.map((x,index)=>(<p key={index}>{x}</p>))
 }    
 
 export default PaperList;
