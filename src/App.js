@@ -6,8 +6,8 @@ import Note from './Note.js';
 
 function App() {
   const [item, setItem]=useState([{value:"test1", id:0, done: true, check:false}, {value:"test2", id:1, done: false, check:false}]);
-  var text;
   const[count, setCount] = useState(2);
+  const[value, setValue] = useState('');
   const doneTask = index => {
     item[index].done = !item[index].done;
     setItem([...item]); 
@@ -23,10 +23,13 @@ function App() {
  
    
     <div  className = "input">  
-        <input type="text" ref={element=>text=element} className="inputtext" placeholder="Add your note here"/>
+        <input type="text" value={value} className="inputtext" placeholder="Add your note here" onChange={(e)=>{
+        setValue(e.target.value)
+        }}/>
         <button className="but"  onClick={()=>{
           setCount(count+1)
-          setItem([...item, {value:text.value, id: count, done:false, check:false}])
+          setItem([...item, {value:value, id: count, done:false, check:false}])
+          setValue('')
         }}><i className="fa fa-plus"></i> Add</button>
         <button className="but" onClick={()=>{
           setItem([...item.filter((x)=>!x.check)])
@@ -51,6 +54,4 @@ function App() {
 </div>
   );
 }
-
-
 export default App;
