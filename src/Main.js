@@ -3,11 +3,10 @@ import './App.css';
 import {useState} from 'react';
 import Note from './Note.js';
 
-
 function Main() {
   const [item, setItem]=useState([{value:"test1", id:0, done: true, check:false}, {value:"test2", id:1, done: false, check:false}]);
-  const[count, setCount] = useState(2);
-  const[value, setValue] = useState('');
+
+  const[value, setValue] = useState({name: ""});
   const doneTask = index => {
     item[index].done = !item[index].done;
     setItem([...item]); 
@@ -23,13 +22,18 @@ function Main() {
  
    
     <div  className = "input">  
-        <input type="text" value={value} className="inputtext" placeholder="Add your note here" onChange={(e)=>{
-        setValue(e.target.value)
+        <input type="text" value={value.name} className="inputtext" placeholder="Add your note here" onChange={(e)=>{
+        setValue({name:`${e.target.value}`})
         }}/>
         <button className="but"  onClick={()=>{
-          setCount(count+1)
-          setItem([...item, {value:value, id: count, done:false, check:false}])
-          setValue('')
+          fetch("http://localhost:8000/newpaper", {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(value)
+          }).then( setValue({name: ""}))
+         
         }}><i className="fa fa-plus"></i> Add</button>
         <button className="but" onClick={()=>{
           setItem([...item.filter((x)=>!x.check)])
@@ -47,10 +51,11 @@ function Main() {
           ))
           }
            </div>
+         
     </div>
    </div>
          
-       <h2>&copy; 2020 N&M Group All rights reserved</h2>
+       <h2> Data From Server</h2>
 </div>
   );
 }

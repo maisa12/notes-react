@@ -1,17 +1,19 @@
 import React from 'react';
 import './App.css';
 import Main from './Main.js';
-import PaperList from './Paper.js';
-import {NoteList} from './Paper.js';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import PaperList from './PaperList.js';
+import NoteList from './NoteList.js';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 function App() {
  return (
- 
+  
  <Router>
-   <Route path="/" exact component={Main}/>
-   <Route path="/paper" exact component={PaperList}/>
-   <Route path="/paper/:id" exact component={NoteList}/>
+   <Main/>
+   <Switch>
+   <Route path="/" exact component={PaperList}/>
+   <Route path="/papers/:id" exact component={NoteList}/>
+   </Switch>
  </Router>
  )
 }

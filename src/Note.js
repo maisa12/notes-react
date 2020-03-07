@@ -1,7 +1,5 @@
 import React from 'react';
 
-
-
 function buttn(val){
   var cal;
    if(val){ 
@@ -12,11 +10,12 @@ function buttn(val){
   }
   return cal  
 }
-function Note ({value, id, done, doneTask, ch, check}){
+
+function Note ({value, id, done, paperid, del, btdone}){
    return (<p className = "newlistp" key={id}>
-               <input type="checkbox" className="newlistbox"  id={id} onChange={()=>check(ch)}/>
+              <button  onClick={()=>del(paperid,id)}/>
                   <span className={buttn(done)}>{value}</span>
-                 <button className={buttn(done)} onClick={()=>doneTask(id)}/>
+                 <button className={buttn(done)} onClick={()=>btdone(paperid,id)}/>
                </p>)
 }
 export default Note;
