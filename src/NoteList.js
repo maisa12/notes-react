@@ -6,21 +6,22 @@ import Note from './Note.js';
 
 
 function NoteList({match}){
+    useEffect(()=>{
+        lists()
+    }, [])
     const[item, setItem]=useState([]);
     const[value, setValue] = useState({note: ""});
-    useEffect(()=>{
-      lists()
-  })
     const lists= () => {
       fetch(`http://localhost:8000/papers/${match.params.id}`)
                  .then((response)=> response.json())
                  .then(obj=>setItem(obj))
    }
    const del=(id, index)=>{
-    fetch(`http://localhost:8000/delete/${id}/${index}`)
+    fetch(`http://localhost:8000/delete/${id}/${index}`).then(lists())
   }
   const done=(id, index)=>{
-    fetch(`http://localhost:8000/done/${id}/${index}`)
+    fetch(`http://localhost:8000/done/${id}/${index}`).then(lists())
+   
   }
     return (
       <div>
@@ -35,7 +36,7 @@ function NoteList({match}){
               'Content-Type': 'application/json'
             },
             body: JSON.stringify(value)
-          }).then( setValue({note: ""})).then(lists())
+          }).then(setValue({note: ""})).then(lists())
         }}><i className="fa fa-plus"></i> Add</button>
         </div>
     <div className="main">

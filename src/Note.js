@@ -13,9 +13,9 @@ function buttn(val){
 
 function Note ({value, id, done, paperid, del, btdone}){
    return (<p className = "newlistp" key={id}>
-              <button  onClick={()=>del(paperid,id)}/>
-                  <span className={buttn(done)}>{value}</span>
-                 <button className={buttn(done)} onClick={()=>btdone(paperid,id)}/>
+              <button className="dele"  onClick={()=>del(paperid,id)}/>
+                     <span className={buttn(done)}>{value}</span>
+                 <button className={buttn(done)} onClick={()=> {btdone(paperid,id)}}/>
                </p>)
 }
 export default Note;
