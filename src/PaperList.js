@@ -4,9 +4,10 @@ import {useEffect, useState} from 'react';
 import Paper from './Paper.js';
 
 function PaperList(){
+  const[state, setState]=useState(true);
     useEffect(()=>{
         list()
-    }, [])
+    }, [state])
     const[item, setItem]=useState([]);
     const[value, setValue]=useState({name:""});
     const list= () => {
@@ -30,13 +31,12 @@ function PaperList(){
           body: JSON.stringify(value)
         }).catch((error)=>{console.log(error)}) 
         setValue({name:""});
-        list()
-       
+        setState(!state)     
       }}><i className="fa fa-plus"></i> Add</button>
       
   </div> 
     <div className="main">
-        {item.map(x=>(<Paper key={x.id} name={x.name} id={x.id} amount={x.amount} list={list}/>)
+        {item.map(x=>(<Paper key={x.id} name={x.name} id={x.id} amount={x.amount} setState={setState} state={state}/>)
         )}
     </div>
  </div>
