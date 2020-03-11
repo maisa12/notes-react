@@ -4,16 +4,15 @@ import {useEffect, useState} from 'react';
 import Paper from './Paper.js';
 
 function PaperList(){
-  const[state, setState]=useState(true);
     useEffect(()=>{
         list()
-    }, [state])
-    const[item, setItem]=useState([]);
+    }, [])
+    const[paperList, setPaperList]=useState([]);
     const[value, setValue]=useState({name:""});
     const list= () => {
       fetch('http://localhost:8000/papers')
                  .then((response)=> response.json())
-                 .then((obj)=>setItem(obj))
+                 .then((obj)=>setPaperList(obj))
                  .catch((error)=>{console.log(error)})
    }
     return (
@@ -31,12 +30,12 @@ function PaperList(){
           body: JSON.stringify(value)
         }).catch((error)=>{console.log(error)}) 
         setValue({name:""});
-        setState(!state)     
+        list()    
       }}><i className="fa fa-plus"></i> Add</button>
       
   </div> 
     <div className="main">
-        {item.map(x=>(<Paper key={x.id} name={x.name} id={x.id} amount={x.amount} setState={setState} state={state}/>)
+        {paperList.map(paper=>(<Paper key={paper.id} paper={paper} list={list}/>)
         )}
     </div>
  </div>

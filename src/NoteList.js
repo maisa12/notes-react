@@ -6,23 +6,22 @@ import Note from './Note.js';
 
 
 function NoteList({match}){
-  const[state, setState]=useState(true);
     useEffect(()=>{
         lists()
-    }, [state])
-    const[item, setItem]=useState([]);
+    }, [])
+    const[noteList, setNoteList]=useState([]);
     const[value, setValue] = useState({note: ""});
     const lists= () => {
       fetch(`http://localhost:8000/papers/${match.params.id}`)
                  .then((response)=> response.json())
-                 .then(obj=>setItem(obj))
+                 .then(obj=>setNoteList(obj))
                  .catch((error)=>{console.log(error)}) 
    }
-   const del=(id, index)=>{
-    fetch(`http://localhost:8000/delete/${id}/${index}`).then(setState(!state)).catch((error)=>{console.log(error)}) 
+   const deleteNote=(id, index)=>{
+    fetch(`http://localhost:8000/delete/${id}/${index}`).then(lists()).catch((error)=>{console.log(error)}) 
   }
   const done=(id, index)=>{
-    fetch(`http://localhost:8000/done/${id}/${index}`).then(setState(!state)).catch((error)=>{console.log(error)}) 
+    fetch(`http://localhost:8000/done/${id}/${index}`).then(lists()).catch((error)=>{console.log(error)}) 
    
   }
     return (
@@ -38,14 +37,14 @@ function NoteList({match}){
               'Content-Type': 'application/json'
             },
             body: JSON.stringify(value)
-          }).then(setValue({note: ""})).then(setState(!state)).catch((error)=>{console.log(error)}) 
+          }).then(setValue({note: ""})).then(lists()).catch((error)=>{console.log(error)}) 
         }}><i className="fa fa-plus"></i> Add</button>
         </div>
     <div className="main">
       <Link to="/">Back</Link>
            <div className = "checkbox">
-          {item.map((x, index)=>(
-            <Note value={x.value} id={x.id} done={x.done} key={x.id} btdone={done} paperid={match.params.id} del={del}/>
+          {noteList.map((note, index)=>(
+            <Note note={note} key={note.id} btdone={done} paperid={match.params.id} deleteNote={deleteNote}/>
           ))
           }
            </div> 

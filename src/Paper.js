@@ -2,12 +2,12 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 
-function Paper ({name, id, amount, state, setState}){
-    const dl = (hal)=>{
-        fetch(`http://localhost:8000/del/${hal}`).then(setState(!state)).catch((error)=>{console.log(error)})
+function Paper ({paper, list}){
+    const deletePaper = (id)=>{
+        fetch(`http://localhost:8000/del/${id}`).then(list()).catch((error)=>{console.log(error)})
        }
-   return (<p key={id}  ><button className="dele" onClick={()=>{dl(id)}}/> 
-    <span className="paperlist"><em>Name</em>: {name}  <em>Amount</em>: {amount} <Link to={`/papers/${id}`}><button className="del" >read</button> </Link></span> 
+   return (<p key={paper.id}  ><button className="dele" onClick={()=>{deletePaper(paper.id)}}/> 
+    <span className="paperlist"><em>Name</em>: {paper.name}  <em>Amount</em>: {paper.amount} <Link to={`/papers/${paper.id}`}><button className="del" >read</button> </Link></span> 
     </p>)
 }
 export default Paper;
