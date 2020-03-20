@@ -29,10 +29,10 @@ function NoteList({id, state}){
                  .catch((error)=>{console.log(error)}) 
    }
    const deleteNote=(id, index)=>{
-    fetch(`http://localhost:8000/delete/${id}/${index}`).then(lists()).catch((error)=>{console.log(error)}) 
+    fetch(`http://localhost:8000/delete/${id}/${index}`).then(()=>lists()).catch((error)=>{console.log(error)}) 
   }
   const done=(id, index)=>{
-    fetch(`http://localhost:8000/done/${id}/${index}`).then(lists()).catch((error)=>{console.log(error)})    
+    fetch(`http://localhost:8000/done/${id}/${index}`).then(()=>lists()).catch((error)=>{console.log(error)})    
   }
  
 const add = async()=>{
@@ -55,7 +55,7 @@ const add = async()=>{
      <Paper elevation={3} style={{width: "50%", marginLeft: "25%"}}>
           {noteList.map((note, index)=>(
           <List key={index}  aria-label="Papers">
-            <Note note={note} btdone={done} paperid={id} deleteNote={deleteNote}/>
+            <Note note={note} buttonDone={done} paperid={id} deleteNote={deleteNote}/>
             </List>
           ))
           }

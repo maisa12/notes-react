@@ -10,7 +10,7 @@ import {
 
 function PaperItem ({paper, list, state, paperid}){
     const deletePaper = (id)=>{
-        fetch(`http://localhost:8000/del/${id}`).then(list()).catch((error)=>{console.log(error)})
+        fetch(`http://localhost:8000/del/${id}`).then(()=>list()).catch((error)=>{console.log(error)})
        }
    return (
     <ListItem button  >

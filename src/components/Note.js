@@ -9,8 +9,8 @@ import {
 
 
 
-function PaperItem ({note, paperid, deleteNote, btdone}){
- const buttn = (val) =>{
+function PaperItem ({note, paperid, deleteNote, buttonDone}){
+ const textStyle = (val) =>{
         var cal;
          if(val){ 
            cal = {textDecoration: "line-through"}
@@ -21,8 +21,8 @@ function PaperItem ({note, paperid, deleteNote, btdone}){
         return cal  
       }
    return (
-    <ListItem button onClick={()=>btdone(paperid,note.id)} >
-        <ListItemText primary={note.value}  style={buttn(note.done)}   />
+    <ListItem button  >
+        <ListItemText primary={note.note}  style={textStyle(note.done)}  onClick={()=>buttonDone(paperid,note.id)} />
         <IconButton edge="end" aria-label="delete" onClick={()=>deleteNote(paperid, note.id)}>
                       <DeleteIcon />
          </IconButton>
